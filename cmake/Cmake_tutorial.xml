@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<indexing>
+ <paragraph index="9" node_type="writer">Lo que vamos a hacer con Cmake son “MAKE FILES”, ejecutables vamos</paragraph>
+ <paragraph index="11" node_type="writer">para crear el archivo “vim CmakeLists.txt (esto se  hace con &gt;Quick Fix en VSC)</paragraph>
+ <paragraph index="13" node_type="writer">cmake_minimum_required(VERSION 3.10) // cmake version</paragraph>
+ <paragraph index="14" node_type="writer">project(nombre_de_mi_projecto)</paragraph>
+ <paragraph index="15" node_type="writer">add_executable(${PROJECT_NAME} main.cpp) </paragraph>
+ <paragraph index="18" node_type="writer">en la carpeta donde esta el main, vamos a crear una carpeta llamada “build”</paragraph>
+ <paragraph index="19" node_type="writer">hago cd build/ y ya dentro pongo “cmake ..” (donde esta mi  CmakeLists)</paragraph>
+ <paragraph index="21" node_type="writer">Gracias a esto ultimo se crea un  CmakeFiles</paragraph>
+ <paragraph index="23" node_type="writer">Este archivo se abrira ponien “./nombre_de_mi_projecto“</paragraph>
+ <paragraph index="26" node_type="writer">A  CmakeLists.txt podemos añadir librerias:</paragraph>
+ <paragraph index="27" node_type="writer">(le he puesto el nombre de “mylib” a mi libreria)</paragraph>
+ <paragraph index="29" node_type="writer">Si librería dinamica:</paragraph>
+ <paragraph index="30" node_type="writer">add_library(mylib SHARED lib.cpp)</paragraph>
+ <paragraph index="31" node_type="writer">creara libmylib.so</paragraph>
+ <paragraph index="33" node_type="writer">Si libre	ría estática(de default, pero puede añadir el STATIC):</paragraph>
+ <paragraph index="34" node_type="writer">add_library(mylib STATIC lib.cpp)</paragraph>
+ <paragraph index="35" node_type="writer">creara libmylib.a</paragraph>
+ <paragraph index="37" node_type="writer">//para unir el main con la libreria</paragraph>
+ <paragraph index="38" node_type="writer">tarjet_link_libraries(${ROJECT_NAME} mylib) </paragraph>
+ <paragraph index="40" node_type="writer">VIDEO DE YOUTUBE – Ya lo de subdirectories me parece too much</paragraph>
+</indexing>
