@@ -3,14 +3,19 @@
  * Haz un programa que lea el número de elementos (como máximo 100) para un array y
  * un conjunto de números enteros y los guarde en un array e indique cuál es el menor de todos.
  * Debe incluirse un programa principal (main) para probar las funciones implementadas. 
+ 
  * El programa contendrá las siguientes funciones:
- * * - La función main para probar que todo funciona de forma correcta.
+
+ * - La función main para probar que todo funciona de forma correcta.
+
  * - La función imprimirArray para mostrar en la salida estándar el número de elementos 
  * (y un salto de línea a continuación) y los elementos de un array de enteros 
  * (separados por espacios en blanco).
+
  * - La función leerArray para leer de la entrada estándar los elementos de un array. 
  * Para ello recibe como parámetro un array de enteros, su dimensión y el número de 
  * elementos útiles finalmente leídos (este último parámetro se pasa por referencia).
+
  * - La función buscarMinimoArray que reciba un array de enteros, y dos enteros 
  * (índices inicial y final del array donde buscar el mínimo) y devuelva la posición 
  * donde se encuentra el mínimo elemento del subarray que comienza en la posición 
