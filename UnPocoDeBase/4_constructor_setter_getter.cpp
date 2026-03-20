@@ -3,8 +3,8 @@
 
 class Pizza{
     private:
-        std::string ingrediente1 = "nulo";
-        std::string ingrediente2 = "nulo"; 
+        std::string ingrediente1;
+        std::string ingrediente2; 
 
     public:
 
@@ -14,7 +14,7 @@ class Pizza{
         // como a ti te venga en gana
 
 
-        Pizza(std::string _ingrediente1, std::string _ingrediente2){
+        Pizza(const std::string& _ingrediente1, const std::string& _ingrediente2){
             // ingrediente1 = _ingrediente1; o mejor ->
             setIngrediente1(_ingrediente1);
             // ingrediente2 = _ingrediente2; o mejor ->
