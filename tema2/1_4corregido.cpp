@@ -13,13 +13,21 @@ const int MAX_VAL = 100;
 // En la declaración de parámetros, int* array y int array[] son equivalentes.
 // En el cuerpo de la función, *array es igual a array[0], no a todo el array.
 
+// int array[MAX_ELEM];
+// se crea -> puntero a entero: int *ptr;
+// ptr = &array[0]
+// DONDE: 
+// array[0] es quivalente a *array ( y a  *(&array[0])   ) 
+// array es equivalente a &array[0]
+
+// LA FUNCION RECIBE EL VALOR APUNTADO
 void escribir_aleatoriamente_array(int *array) {
     for (int i = 0; i < MAX_VAL; i++) {
         *(array + i) = (rand() % 19) - 9; // Aritmética de punteros
     }
 }
 
-// Función para imprimir (usando aritmética de punteros)
+// CASO LA FUNCION RECIBE PUNTERO
 void leer_array(const int *array) {
     for (int i = 0; i < MAX_VAL; i++) {
         cout << *(array + i) << " ";
