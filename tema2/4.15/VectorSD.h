@@ -1,8 +1,8 @@
 
 #include <iostream>
 
-#ifndef VECTORSH_H
-#define VECTORSH_H
+#ifndef VECTORSD_H
+#define VECTORSD_H
 
 /* info es un puntero que mantiene la dirección de una secuencia de enteros, util indica el número de
 componentes usados de la secuencia y capacidad indica el número de posiciones reservadas de la memoria
@@ -79,14 +79,14 @@ void liberar();
 salida. Este método tendrá la siguiente forma:
 */
 
-void mostrar(ostream& flujo);
+void mostrar(std::ostream& flujo)const;
 /* 
 (i) Método que recibe un flujo de entrada y carga uno a uno los datos enteros que contiene, en el objeto
 VectorSD hasta que llega al final de la entrada.
 */
 
-void leer(istream& flujo);
+void leer(std::istream& flujo);
 
 };
 
-#endif // VECTORSH_H
+#endif // VECTORSD_H

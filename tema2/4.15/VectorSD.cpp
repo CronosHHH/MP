@@ -1,5 +1,5 @@
 
-#include "vectorSD.h"
+#include "VectorSD.h"
 
 /*
 _____________________________________________________
@@ -29,8 +29,10 @@ memoria dinámica y ponga el número de componentes usadas a 0.
 // VectorSD::VectorSD() : VectorSD(10) {}
 
 VectorSD::VectorSD () {
-...
-};
+    _capacidad = 10;
+    _util = 0;
+    _info = new int[_capacidad];
+}
 
 /* 
 (b) Constructor de la clase que inicialice una variable de tipo VectorSD reservando n casillas de memoria
@@ -42,21 +44,24 @@ dinámica y ponga el número de componentes usadas a 0.
 //    : _info(new int[capacidad]), _util(0), _capacidad(capacidad) {}
 
 VectorSD::VectorSD (int n) {
-...
+    _capacidad = n;
+    _util = 0;
+    _info = new int[_capacidad];
 }
 
 /*
 (c) Método que nos devuelva el dato (int) almacenado en una determinada posición (int).
 */
+
 int VectorSD::getDato(int posicion) const {
-...
+    return _info[posicion]; // tambien se podira poner _info[posicion]
 }
 
 /* 
 (d) Método que devuelva el número de datos guardados actualmente en un objeto VectorSD.
 */
 int VectorSD::nElementos() const {
-...
+    return _util;
 }
 
 /* 
@@ -65,7 +70,29 @@ nuevo valor sobrepase el número de elementos reservados. En este caso, realojar
 el doble de posiciones. 
 */
 void VectorSD::aniadir(int dato){
-...
+    
+    if( _util >= _capacidad ) {
+
+        //Redimensionar el array el doble de posiciones
+        
+        // condicion ? valor_si_true : valor_si_false
+        int n = (_capacidad == 0) ? 1 : _capacidad * 2;
+
+        // no se puede poner aux[] = new int[n];
+        int *aux = new int[n];
+
+        for(int i=0; i< _util; i++){
+            aux[i] = _info[i];
+        }
+        
+        delete [] _info;
+        _info = aux;
+        _capacidad = n;
+    }
+
+    _info[_util] = dato;
+    _util++;
+
 }
 
 /* 
@@ -76,7 +103,30 @@ debe liberarla antes.
 */
 
 void VectorSD::copia(const VectorSD &vector){
-...
+
+
+    // lo que buscamos, basicamente es liberar la memoria en heap que esta sin usar
+    // por eso no podemos hacer VectorSD = vector
+
+    // la capacidad será el util;
+    int nueva_capacidad = vector.nElementos();
+
+    // el constructor hace     _info = new int[_capacidad]; con la nueva_capacidad
+    int *aux = new int[nueva_capacidad];
+
+    for(int i=0; i <nueva_capacidad; i++){
+        aux[i] = vector.getDato(i);
+    }
+
+
+    delete [] _info; // por si habia memoria reservada antes
+    _info = aux;
+
+    _capacidad = nueva_capacidad;
+    _util = nueva_capacidad;
+
+
+
 }
 
 /* 
@@ -84,7 +134,11 @@ void VectorSD::copia(const VectorSD &vector){
 */
 
 void VectorSD::liberar(){
-...
+    delete [] _info;
+    // Buena práctica: dejar el objeto en estado consistente tras liberar
+    _info = nullptr;
+    _util = 0;
+    _capacidad = 0;
 }
 
 /* 
@@ -92,11 +146,11 @@ void VectorSD::liberar(){
 salida. Este método tendrá la siguiente forma:
 */
 
-void mostrar(ostream& flujo) const {
-    for(int i=0; i<util;i++){
-        flujo << info[i] << " ";
+void VectorSD::mostrar(std::ostream& flujo) const {
+    for(int i=0; i<_util;i++){
+        flujo << _info[i] << " ";
     }
-    flujo<<endl;
+    flujo<<"\n";
 }
 
 /* 
@@ -104,12 +158,9 @@ void mostrar(ostream& flujo) const {
 VectorSD hasta que llega al final de la entrada.
 */
 
-void leer(istream& flujo){
+void VectorSD::leer(std::istream& flujo){
     int dato;
     while(flujo>>dato){
         aniadir(dato);
     }
 }
- 
-
-#endif // VECTORSH_H

@@ -9,7 +9,9 @@ se da a continuación.
 #include <iostream>
 #include <fstream> // ifstream
 #include "VectorSD.h"
+
 using namespace std;
+
 int main(int argc, char* argv[])
 {
 VectorSD v;
