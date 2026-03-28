@@ -43,7 +43,7 @@ void redimensionar(char* &array, int& nchar, int incremento) {
     }
 
     // 3. Libera el array antiguo
-    delete[] array;
+    delete [] array;
 
     // 4. Apunta el puntero original al nuevo array
     array = arraytemp;
