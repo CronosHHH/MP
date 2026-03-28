@@ -6,6 +6,8 @@ struct Electrica {
     int voltios;
 }
 
+// tiene que caracter que es el \0
+// no se peuden co
 int main(){
 
 Electrica *p = new Electrica(), *q = new Electrica();
