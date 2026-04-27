@@ -25,7 +25,7 @@ private:
     std::string _fecha; ///<  fecha en formato con año/mes/dia
     std::string _concepto; ///<  descripción del concepto de la operacion 
     double _importe; ///<  importe en euros de la operación; siempre es positivo
-    static const std::sfg68ztring OPERACION_XDEFECTO; ///<  operación por defecto
+    static const std::string OPERACION_XDEFECTO; ///<  operación por defecto
     
 public:
     
