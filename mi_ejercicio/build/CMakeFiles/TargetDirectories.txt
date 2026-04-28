@@ -1,0 +1,3 @@
+/home/renato/Desktop/MP/mi_ejercicio/build/CMakeFiles/Tarjetas.dir
+/home/renato/Desktop/MP/mi_ejercicio/build/CMakeFiles/edit_cache.dir
+/home/renato/Desktop/MP/mi_ejercicio/build/CMakeFiles/rebuild_cache.dir

@@ -31,8 +31,9 @@ void leerVOperat (Operacion *v, int nOperaciones){
     getline(cin, linea);
     while(linea != "FINAL") {
         una.set(linea);
-        COMPLETAR Añadir una operacion al vector v 
-        COMPLETAR lectura 
+        // COMPLETAR Añadir una operacion al vector v 
+        agnadeOperacionVOperat()
+        // COMPLETAR lectura 
     }
 }
 
@@ -112,8 +113,9 @@ void liberarVOperat(Operacion *v) {
  * @param nOperaciones número de elementos usados del vector v. 
  * Parámetro de E/, no se modifica
  */
-void redimensionarVOperat(Operacion *v, int nOperaciones){
+void redimensionarVOperat(const Operacion& *v, int nOperaciones) const{
     COMPLETAR
+    
 
 }
 

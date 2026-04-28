@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wall -Wextra -Wpedantic CMakeFiles/ParcialC.dir/src/VectorOperacion.cpp.o CMakeFiles/ParcialC.dir/src/Operacion.cpp.o CMakeFiles/ParcialC.dir/src/main.cpp.o -o ParcialC 

@@ -1,0 +1,3 @@
+/home/renato/Desktop/MP/parcial/ParcialC/ParcialC (copia)/ParcialC/build/CMakeFiles/ParcialC.dir
+/home/renato/Desktop/MP/parcial/ParcialC/ParcialC (copia)/ParcialC/build/CMakeFiles/edit_cache.dir
+/home/renato/Desktop/MP/parcial/ParcialC/ParcialC (copia)/ParcialC/build/CMakeFiles/rebuild_cache.dir
