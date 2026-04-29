@@ -24,16 +24,19 @@ using namespace std;
  * @param nOperaciones número de operaciones del vector de operaciones.
  * Parámetro de entrada/salida
  */
-void leerVOperat (Operacion *v, int nOperaciones){
+
+void leerVOperat (Operacion *&v, int &nOperaciones){
     string linea;
-    Operacion una;
+    Operacion una; //!!
     
     getline(cin, linea);
     while(linea != "FINAL") {
-        una.set(linea);
+
+        una.set(linea); //!!
+
         // COMPLETAR Añadir una operacion al vector v 
-        agnadeOperacionVOperat()
-        // COMPLETAR lectura 
+        agnadeOperacionVOperat(v, nOperaciones, una);
+        getline(cin, linea);
     }
 }
 
@@ -53,10 +56,12 @@ void imprimirVOperat(Operacion *v, int nOperaciones){
 
 /**
  * @brief Trata de ejecutar una a una, cada una de las operaciones del
- * vector de Operaciones vE. Se asume una liquidez inicial de 0.  
+ * vector de Operaciones vE. 
+ 
+ + Se asume una liquidez inicial de 0.  
  * Para cada operacion comprueba si se puede ejecutar 
  *   en caso afirmativo actualiza la liquidez con el importe correspondiente 
- *      a la operación, 
+ *      a la operación,
  *   en caso contrario, 
  *     añade la operación en cuestión a las operaciones pendientes, y
  *     elimina dicha operación del vector de operaciones vE.
@@ -71,14 +76,35 @@ void imprimirVOperat(Operacion *v, int nOperaciones){
  * @param capitalMinimo valor necesario para comprobar si se puede aplicar o no 
  * la operación. Parámetro de entrada.
  */
-void ejecutarVOperat(Operacion *vE, int nOperacionesE,
-        Operacion *vP, int nOperacionesP,
-        double capitalMinimo) {
+void ejecutarVOperat(
+        Operacion *vE, 
+        int &nOperacionesE,
+        Operacion *&vP, 
+        int& nOperacionesP,
+        const double capitalMinimo) {
 
-  COMPLETAR
-        if (esEjecutableOperacion(liquidez, vE[i], capitalMinimo)) {
-     
-}
+    double liquidez = 0.0;
+    for(int i =0 ; i < nOperacionesE ; i++){
+            
+            if (esEjecutableOperacion(liquidez, vE[i], capitalMinimo)) {
+            
+                //vector es de Tipo Inversion
+                if(vE[i].getTipo() == Operacion::IDA::Inversion){
+                    liquidez -= vE[i].getImporte();
+                }else{ 
+                //sino es de tipo inversion ==> Desinversion || Aporte
+                    liquidez += vE[i].getImporte();
+                }
+
+            }else{
+                agnadeOperacionVOperat(vP, nOperacionesP,vE[i] );
+                eliminaOperacionVOperat(vE,nOperacionesE,i);//revisar ahora
+            }
+
+        }
+
+    }
+
   
 /**
  * @brief Reserva en memoria dinámica un vector de operaciones de tamaño nOperaciones.
@@ -87,9 +113,9 @@ void ejecutarVOperat(Operacion *vE, int nOperacionesE,
  * @return dirección de inicio de la memoria reservada para el vector de 
  * operaciones. Si n<=0 devuelve nullptr
  */
-Operacion *reservarVOperat(int nOperaciones) {
-    COMPLETAR
-
+Operacion *reservarVOperat(const int nOperaciones) {
+    if (nOperaciones <= 0) return nullptr;
+    return new Operacion[nOperaciones];
 }
 
 /**
@@ -98,9 +124,9 @@ Operacion *reservarVOperat(int nOperaciones) {
  * @param v un vector de operaciones.
  * El contenido del vector es de entrada/salida. El puntero v es de entrada/salida
  */
-void liberarVOperat(Operacion *v) {
-    COMPLETAR
-
+void liberarVOperat(Operacion *&v) {
+    delete[] v;
+    v = nullptr;
 }
 
 /** 
@@ -113,10 +139,19 @@ void liberarVOperat(Operacion *v) {
  * @param nOperaciones número de elementos usados del vector v. 
  * Parámetro de E/, no se modifica
  */
-void redimensionarVOperat(const Operacion& *v, int nOperaciones) const{
-    COMPLETAR
-    
 
+// le pongo & a Operacion *&v ; porque voy a cambiar las direcciones de memoria de v.
+// le pongo & a int &nOperaciones ; porque voy a cambiar el valor de n0peraciones.
+// le pongo const y & a "const Operacion &nuevo" ; para pasarlo por referencia, es mas eficiente.
+
+void redimensionarVOperat(Operacion *&v, int &nOperaciones){
+    Operacion *nuevo = reservarVOperat(nOperaciones + 1);
+    for (int i = 0; i < nOperaciones; ++i) {
+        nuevo[i] = v[i];
+    }
+    delete[] v;
+    v = nuevo;
+    ++nOperaciones;
 }
 
 /**
@@ -129,9 +164,17 @@ void redimensionarVOperat(const Operacion& *v, int nOperaciones) const{
  * @param nuevo Contenedor de entrada a insertar al final del vector de operaciones. 
  * Parámetro de entrada
  */
-void agnadeOperacionVOperat(Operacion *v, int nOperaciones, Operacion nuevo){
-    COMPLETAR
 
+ // le pongo & a Operacion *&v ; porque voy a cambiar las direcciones de memoria de v.
+ // le pongo & a int &nOperaciones ; porque voy a cambiar el valor de n0peraciones.
+ // le pongo const y & a "const Operacion &nuevo" ; para pasarlo por referencia, es mas eficiente.
+
+void agnadeOperacionVOperat(Operacion *&v, int &nOperaciones, const Operacion &nuevo){
+
+    redimensionarVOperat(v, nOperaciones);
+    //Añade la Operacion nuevo al final del vector
+    v[nOperaciones - 1] = nuevo;
+    
 }
 
 /**
@@ -150,14 +193,15 @@ void agnadeOperacionVOperat(Operacion *v, int nOperaciones, Operacion nuevo){
  * @return true si la operación proporcionada puede realizarse con la liquidez
  * actual; false en otro caso. 
  */
-bool esEjecutableOperacion(double liquidezActual,
-        Operacion ctd, double capitalMinimo){
-    bool ok = true;
-    if (ctd.getTipo() == Operacion::IDA::Inversion) // comprueba si getTipo es Inversion
-        if (liquidezActual + ctd.getImporte() < capitalMinimo )
-            ok = false;      
-    COMPLETAR
+bool esEjecutableOperacion(double liquidezActual, Operacion ctd, double capitalMinimo){
+    // Solo una inversión puede violar el capital mínimo, porque resta liquidez.
+    if (ctd.getTipo() == Operacion::IDA::Inversion) {
+        return (liquidezActual - ctd.getImporte() >= capitalMinimo);
+    }
+    // Desinversión y aporte suman liquidez: siempre ejecutables.
+    return true;
 }
+
 
 /**
  * @brief Devuelve el importe calculado total obtenido con la ejecucion de cada una 
@@ -170,13 +214,19 @@ bool esEjecutableOperacion(double liquidezActual,
  * @return capital total obtenido como suma de importes de cada uno
  * de las operaciones que hay en el vector de operaciones v
  */
-double calculaImporteVOperat(Operacion *v, int nOperaciones){
-   COMPLETAR
+double calculaImporteVOperat(Operacion *v, const int nOperaciones){
+    double result = 0.0;
+    for (int i = 0; i < nOperaciones; i++){
+        result += v[i].getImporte();
+    }
+    return result;
 }
 
 /**
  * @brief Elimina la Operacion situada en la posición pos del vector v, de forma
- * que se mantenga el mismo orden relativo del resto de Operaciones. No es necesario
+ * que se mantenga el mismo orden relativo del resto de Operaciones. 
+ 
+ * No es necesario
  * redimensionar el espacio de memoria, y es necesario actualizar el contador al 
  * número de operaciones útiles en el vector.
  * Si la posición pos no es correcta, la función no hará ninguna acción sobre
@@ -187,9 +237,12 @@ double calculaImporteVOperat(Operacion *v, int nOperaciones){
  * Parámetro de entrada/salida 
  * @param pos posición de la Operacion a eliminar. Parámetro de entrada/salida 
  */
-void eliminaOperacionVOperat(Operacion *v, int nOperaciones, int pos) {
-    if (pos >= 0 && pos<nOperaciones) { // Comprueba que posición pos es correcta
+void eliminaOperacionVOperat(Operacion *v, int &nOperaciones, int pos) {
+    if (pos >= 0 && pos<nOperaciones) { 
 
-        COMPLETAR
+        for(int i=pos ; i < (nOperaciones-1) ; i++){
+            v[i] = v[i+1];
+        }
+        nOperaciones--;
     }
 }

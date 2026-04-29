@@ -15,16 +15,19 @@
 
 // funciones externas
 
-void leerVOperat (Operacion *v, int nOperaciones);
-Operacion *reservarVOperat(int nOperaciones);
-void liberarVOperat(Operacion *v);
-void redimensionarVOperat(Operacion *v, int nOperaciones);
-void agnadeOperacionVOperat(Operacion *v, int nOperaciones, Operacion nuevo);
+
+void leerVOperat(Operacion *&v, int &nOperaciones);
+
+Operacion *reservarVOperat(const int nOperaciones);
+
+void liberarVOperat(Operacion *&v);
+void redimensionarVOperat(Operacion *&v, int &nOperaciones);
+void agnadeOperacionVOperat(Operacion *&v, int &nOperaciones, const Operacion &nuevo);
 void imprimirVOperat(Operacion *v, int nOperaciones);
 bool esEjecutableOperacion(double liquidezActual, Operacion ctd, double capitalMinimo);
-void ejecutarVOperat(Operacion *vE, int nOperacionesE, Operacion *vP, int nOperacionesP, double capitalMinimo);
-void eliminaOperacionVOperat(Operacion *v, int nOperaciones, int pos);
-double calculaImporteVOperat(Operacion *v, int nOperaciones);
+void ejecutarVOperat(Operacion *vE, int &nOperacionesE, Operacion *&vP, int &nOperacionesP, const double capitalMinimo);
+void eliminaOperacionVOperat(Operacion *v, int &nOperaciones, int pos);
+double calculaImporteVOperat(Operacion *v, const int nOperaciones);
 
 #endif /* VECTOROPERACION_H */
 

@@ -223,27 +223,59 @@ valgrind --tool=memcheck --leak-check=full --track-origins=yes  dist/Debug/GNU-L
 
 
 #include <cstdlib>
+#include <string>
 #include <iostream>
 #include "VectorOperacion.h"
 
 using namespace std;
 
 int main(int argc, char** argv) {
+
     //Declaración de las variables mas importantes ... declara todas las que necesites
     Operacion *vectorOperaciones, *vectorPendientes;
-    int nOperaciones, nPendientes;  
-  
-    // inicializacion de variables
-    COMPLETAR inicialización variables locales
+    int nOperaciones = 0;
+    int nPendientes = 0;
 
+   /*
+   ejemplo de lo que va a leer:
+   ./programa 6000 data/inputs01.csv
+   
+   */
+   /*
+    argv[0] = nombre del programa
+    argv[1] → capitalMinimo (stod(argv[1]))
+    Entrada de operaciones: por redirección a stdin, p.ej.:
+      dist/Debug/GNU-Linux/parcialc < data/input00.csv
+   */
+
+   // argv[1]
+   double capitalMinimo;
+   if(argc < 2){
+       capitalMinimo = 6000;
+   }else{
+      // stod ==> string to double
+      capitalMinimo = stod(argv[1]);
+   }
+
+   double liquidez;
+
+    // inicializacion de variables
+    // COMPLETAR inicialización variables locales
+   
+   vectorOperaciones = nullptr;
+   vectorPendientes = nullptr;
+   nOperaciones = 0;
+   nPendientes = 0;
+   liquidez = 0.0;
     // Tratamiento del parámetro de main()
        // Ejemplo de cómo convertir cadena a double: 
        // double valor=stod("1000.2"); 
-    COMPLETAR obtener valor de capitalMinimo
     cout << "Capital minimo: " << capitalMinimo << endl;
 
     // leer todas las operaciones
-    COMPLETAR leer todas las operaciones
+    // COMPLETAR leer todas las operaciones
+    leerVOperat(vectorOperaciones, nOperaciones);
+
 
     // Se muestra el contenido de Operaciones leidas
     cout << "Operaciones leidas: " << endl;
@@ -251,7 +283,7 @@ int main(int argc, char** argv) {
     imprimirVOperat(vectorOperaciones, nOperaciones);
 
     // Se trata de ejecutar las operaciones
-    ejecutarVOperat(vectorOperaciones, nOperaciones, vectorPendientes, nPendtes, capitalMinimo);
+    ejecutarVOperat(vectorOperaciones, nOperaciones, vectorPendientes, nPendientes, capitalMinimo);
 
     // Se muestra el contenido de Operaciones ejecutadas
     cout << "Operaciones ejecutadas:" << endl;
@@ -265,13 +297,16 @@ int main(int argc, char** argv) {
     // Se muestra el contenido de Operaciones pendientes
     cout << "Operaciones pendientes:" << endl;
     cout << "=======================" << endl;
-    imprimirVOperat(vectorPendientes,...;
+    imprimirVOperat(vectorPendientes, nPendientes);
     
     // se calcula y se muestra el importe total pendiente
-    liquidez = calculaImporteVOperat(vectorPendientes, ...;
+    liquidez = calculaImporteVOperat(vectorPendientes, nPendientes);
     cout << liquidez << endl;
     
     // Liberar memoria dinámica si procede
+    liberarVOperat(vectorOperaciones);
+    liberarVOperat(vectorPendientes);
+
 
     return 0;
 }

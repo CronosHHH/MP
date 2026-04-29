@@ -69,9 +69,12 @@ void imprimirVOperat(const Operacion *v, const int nOperaciones){
  * @param capitalMinimo valor necesario para comprobar si se puede aplicar o no 
  * la operación. Parámetro de entrada.
  */
-void ejecutarVOperat(Operacion *vE, int& nOperacionesE,
-        Operacion *vP, int& nOperacionesP,
-        const double capitalMinimo) {
+void ejecutarVOperat(Operacion *vE, 
+    int& nOperacionesE, 
+    Operacion *vP, 
+    int& nOperacionesP,
+    const double capitalMinimo) {
+        
     double liquidez = 0.0; 
     for(int i = 0; i < nOperacionesE;i++){
         if (esEjecutableOperacion(liquidez, vE[i], capitalMinimo)) {
@@ -127,7 +130,7 @@ void redimensionarVOperat(Operacion *v,  int& nOperaciones){
     aux = v;
     delete v;
     nOperaciones ++;
-    v = reservarVOperat(nOperaciones);
+    v = reservarVOperat(nOperaciones);// Comprueba que posición pos es correcta
     v = aux;
     delete aux;
 
